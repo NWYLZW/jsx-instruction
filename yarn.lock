@@ -1882,7 +1882,7 @@ typed-array-length@^1.0.4:
     for-each "^0.3.3"
     is-typed-array "^1.1.9"
 
-typescript@^5.1.0-dev.20230515:
+typescript@^5.1.0-beta:
   version "5.1.0-dev.20230515"
   resolved "https://registry.npmjs.org/typescript/-/typescript-5.1.0-dev.20230515.tgz#cf1c5b9542d7bb6f5eeb7878f041705ee6f963be"
   integrity sha512-yn0MGsy6U0QAVF+lXW6LPupQmuRsyA0xUJetqw2tDqa+49231BpkhTuY6oEwLsc98tiEzCfIw7hzbLsiwVGFaA==
