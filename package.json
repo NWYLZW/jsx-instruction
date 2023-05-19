@@ -8,14 +8,22 @@
     "src",
     "dist"
   ],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "test": "vitest"
+  },
   "devDependencies": {
+    "@types/react": "^18.2.6",
     "@typescript-eslint/eslint-plugin": "^5.55.0",
     "@typescript-eslint/parser": "^5.55.0",
-    "typescript": "^5.1.0-beta",
-    "vitest": "^0.31.1",
     "eslint": "^8.36.0",
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-simple-import-sort": "^10.0.0"
+    "eslint-plugin-simple-import-sort": "^10.0.0",
+    "typescript": "^5.1.0-beta",
+    "vitest": "^0.31.1"
+  },
+  "peerDependencies": {
+    "@types/react": "^18.2.6"
   }
 }
