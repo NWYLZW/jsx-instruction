@@ -9,8 +9,6 @@
     "noImplicitAny": true,
     "strictNullChecks": false,
     "moduleResolution": "node",
-    "jsx": "react-jsx",
-    "jsxImportSource": "jsx-instruction/react",
     "outDir": "dist",
     "baseUrl": ".",
     "rootDir": "src",
