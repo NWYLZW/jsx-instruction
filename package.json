@@ -9,6 +9,7 @@
     "dist"
   ],
   "scripts": {
+    "prepare": "cd demos/react && yarn",
     "build": "tsc -p tsconfig.build.json",
     "test": "vitest"
   },
