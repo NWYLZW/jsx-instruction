@@ -91,6 +91,7 @@ module.exports = {
     'jsx-quotes': ['error', 'prefer-single'],
     'react/prop-types': 'off',
     'react/jsx-indent': ['error', 2],
-    'react/jsx-indent-props': ['error', 'first']
+    'react/jsx-indent-props': ['error', 'first'],
+    'react/no-unknown-property': 'off',
   }
 }
