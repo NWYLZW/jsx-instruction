@@ -24,6 +24,9 @@
       "jsx-instruction/*": ["../../src/*"]
     }
   },
-  "include": ["src"],
+  "include": [
+    "src",
+    "node_modules/jsx-instruction/src/react/index.d.ts"
+  ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

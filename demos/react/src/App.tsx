@@ -1,5 +1,3 @@
-import type {} from 'jsx-instruction/react'
-
 export default function App() {
   return <div onClick={(e) => {
     console.log('click', e.target)
