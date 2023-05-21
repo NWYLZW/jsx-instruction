@@ -1,9 +1,11 @@
+import 'jsx-instruction/common'
+
 import type { Instructor } from 'jsx-instruction'
 import { describe, expectTypeOf, it } from 'vitest'
 
 describe('Instructor', () => {
   describe('type', () => {
-    it('should be a function', () => {
+    it('should check common instruction is attached and its type is right', () => {
       type T0 = Instructor<{
         foo: number
         bar: string
