@@ -61,14 +61,17 @@ export type InstructorCalc<T> = U2I<
         infer IT, infer IsPrev, infer ICT, infer E
       ]
       /**
-       * exclude not match target field
+       * define instruction field
        */
-      ? Exclude<keyof PickWithType<T, IT>, E> extends (infer K extends keyof T)
+      ? InstructionFieldDefine<
+        T, ICT,
         /**
-         * define instruction field
+         * exclude not match target field
          */
-        ? InstructionFieldDefine<T, ICT, K, IKey, IsPrev>
-        : {}
+        Exclude<keyof PickWithType<T, IT>, E>,
+        IKey,
+        IsPrev
+      >
       : {}
   : {} : {}
 >
