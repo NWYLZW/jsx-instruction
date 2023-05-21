@@ -43,18 +43,25 @@ export type InstructionFieldDefine<
     : CT
 }
 
+export type GetInstructionMeta<K> = K extends keyof InstructionMap
+  ? InstructionMap[K] extends infer I
+    ? I extends Instruction<infer IT, infer IsPrev, infer ICT, infer E>
+      ? [I, IT, IsPrev, ICT, E]
+      : never
+    : never
+  : never
+
 export type InstructorCalc<T> = U2I<
-  keyof InstructionMap extends (infer IKey extends keyof InstructionMap)
-    ? IKey extends IKey
-    ? InstructionMap[IKey] extends infer I
-      ? I extends Instruction<infer IT, infer IsPrev, infer ICT, infer E>
-        ? Exclude<keyof PickWithType<T, IT>, E> extends (infer K extends keyof T)
-          ? InstructionFieldDefine<T, ICT, K, IKey, IsPrev>
-          : {}
+  keyof InstructionMap extends (infer IKey extends keyof InstructionMap) ? IKey extends IKey
+    ? GetInstructionMeta<IKey> extends [
+        infer _I,
+        infer IT, infer IsPrev, infer ICT, infer E
+      ]
+      ? Exclude<keyof PickWithType<T, IT>, E> extends (infer K extends keyof T)
+        ? InstructionFieldDefine<T, ICT, K, IKey, IsPrev>
         : {}
       : {}
-    : {}
-    : {}
+  : {} : {}
 >
 
 export type Instructor<T> =
