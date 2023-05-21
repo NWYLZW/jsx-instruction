@@ -52,12 +52,21 @@ export type GetInstructionMeta<K> = K extends keyof InstructionMap
   : never
 
 export type InstructorCalc<T> = U2I<
+  /**
+   * map all instructions, and infer instruction metadata
+   */
   keyof InstructionMap extends (infer IKey extends keyof InstructionMap) ? IKey extends IKey
     ? GetInstructionMeta<IKey> extends [
         infer _I,
         infer IT, infer IsPrev, infer ICT, infer E
       ]
+      /**
+       * exclude not match target field
+       */
       ? Exclude<keyof PickWithType<T, IT>, E> extends (infer K extends keyof T)
+        /**
+         * define instruction field
+         */
         ? InstructionFieldDefine<T, ICT, K, IKey, IsPrev>
         : {}
       : {}
