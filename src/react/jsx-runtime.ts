@@ -1,5 +1,7 @@
 import * as __Runtime__ from 'react/jsx-runtime'
 
+import { propsResolver } from '../index'
+
 const Runtime = __Runtime__ as {
   jsx(type: any, props: any, key: any): any
   jsxs(type: any, props: any, key: any): any
@@ -7,13 +9,11 @@ const Runtime = __Runtime__ as {
 }
 
 export function jsx(type: any, props: any, key: any) {
-  console.log('jsx', type, props, key)
-  return Runtime.jsx(type, props, key)
+  return Runtime.jsx(type, propsResolver(props), key)
 }
 
 export function jsxs(type: any, props: any, key: any) {
-  console.log('jsxs', type, props, key)
-  return Runtime.jsxs(type, props, key)
+  return Runtime.jsxs(type, propsResolver(props), key)
 }
 
 export const Fragment = Runtime.Fragment
