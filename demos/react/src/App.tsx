@@ -24,8 +24,8 @@ export default function App() {
     }}>
       click
     </button>
-    <button onClick:stop={() => {
-      console.log('click with stop')
+    <button onClick:stop={(e) => {
+      console.log('click with stop', e.target)
     }}>
       click with stop
     </button>
