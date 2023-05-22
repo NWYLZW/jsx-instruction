@@ -5,13 +5,41 @@
   "main": "dist/index.js",
   "license": "MIT",
   "files": [
-    "src",
-    "dist"
+    "dist",
+    "LICENSE"
   ],
   "scripts": {
     "prepare": "cd demos/react && yarn",
     "build": "tsc -p tsconfig.build.json",
     "test": "vitest"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./react": {
+      "types": "./dist/react/index.d.ts",
+      "import": "./dist/react/index.js",
+      "require": "./dist/react/index.cjs"
+    },
+    "./react/jsx-runtime": {
+      "types": "./dist/react/jsx-runtime.d.ts",
+      "import": "./dist/react/jsx-runtime.js",
+      "require": "./dist/react/jsx-runtime.cjs"
+    },
+    "./react/jsx-dev-runtime": {
+      "types": "./dist/react/jsx-dev-runtime.d.ts",
+      "import": "./dist/react/jsx-dev-runtime.js",
+      "require": "./dist/react/jsx-dev-runtime.cjs"
+    },
+    "./common": {
+      "types": "./dist/common.d.ts",
+      "import": "./dist/common.js",
+      "require": "./dist/common.cjs"
+    },
+    "./package.json": "./package.json"
   },
   "devDependencies": {
     "@types/react": "^18.2.6",
