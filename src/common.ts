@@ -1,5 +1,6 @@
 import type { Instruction } from 'jsx-instruction'
-import { defineInstruction } from 'jsx-instruction'
+
+import { defineInstruction } from './index'
 
 declare module 'jsx-instruction' {
   interface InstructionMap {
