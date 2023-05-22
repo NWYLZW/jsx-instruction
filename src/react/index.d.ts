@@ -1,5 +1,6 @@
-import type { InstructorCalc } from 'jsx-instruction'
-import type React from 'react'
+import type * as React from 'react'
+
+import type { InstructorCalc } from '../index'
 
 declare module 'react' {
   interface AnchorHTMLAttributes<T> extends InstructorCalc<React.AnchorHTMLAttributes<T>> {}
