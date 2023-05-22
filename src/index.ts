@@ -25,7 +25,7 @@ export type Instruction<
   & InstructionItf
   & InstructionDesc<IsPrev, CT, Exclude>
 
-export const instructors = {} as InstructionMap
+export const instructors = {} as Record<string, Instruction<unknown>>
 
 export interface DefineInstruction {
   // <
@@ -50,18 +50,21 @@ export interface DefineInstruction {
     instruction:
       | [
         target: (t: T) => [I['convert']] extends [never] ? T : I['convert'],
-        opts?: InstructionItf & {}
+        opts?: InstructionItf & InstructionDesc<I['isPrev'], I['convert'], I['exclude'][number]>
       ],
     isPrev?: I['isPrev']
   ): void
 }
 
-export const defineInstruction: DefineInstruction = (name, instruction) => {
-  instructors[name as keyof InstructionMap] = instruction as any
+export const defineInstruction: DefineInstruction = (name, [target, opts], isPrev) => {
+  const instruction = target as Instruction<unknown>
+  instruction.isPrev = isPrev
+  instruction.exclude = opts?.exclude
+  // @ts-ignore
+  instructors[name] = target
 }
 
-export interface InstructionMap {
-}
+export interface InstructionMap {}
 
 export type InstructionFieldDefine<
   T, CT,
