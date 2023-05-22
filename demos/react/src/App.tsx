@@ -1,6 +1,9 @@
 import 'jsx-instruction/common'
 
 import type { Instructor } from 'jsx-instruction'
+// For WebStorm, it's needed to import `jsx-instruction/react` to get the type inference.
+// Which is not support tsconfig.json#include.
+import type { } from 'jsx-instruction/react'
 import type { MouseEventHandler } from 'react'
 
 function FooButton(props: Instructor<{
