@@ -25,7 +25,7 @@ export type Instruction<
   & InstructionItf
   & InstructionDesc<IsPrev, CT, Exclude>
 
-export const Instructors = {} as InstructionMap
+export const instructors = {} as InstructionMap
 
 export interface DefineInstruction {
   // <
@@ -57,7 +57,7 @@ export interface DefineInstruction {
 }
 
 export const defineInstruction: DefineInstruction = (name, instruction) => {
-  Instructors[name as keyof InstructionMap] = instruction as any
+  instructors[name as keyof InstructionMap] = instruction as any
 }
 
 export interface InstructionMap {
