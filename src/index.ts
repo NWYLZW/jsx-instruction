@@ -21,7 +21,7 @@ export type Instruction<
   CT = never,
   Exclude extends string = never,
 > =
-  & (() => T)
+  & ((t: T) => [CT] extends [never] ? T : CT)
   & InstructionItf
   & InstructionDesc<IsPrev, CT, Exclude>
 
@@ -44,7 +44,7 @@ export interface DefineInstruction {
     N extends keyof InstructionMap,
     // @ts-ignore
     I extends Instruction<any> = InstructionMap[N],
-    T = I extends (() => infer IT) ? IT : never,
+    T = I extends ((t: infer IT) => any) ? IT : never,
   >(
     name: N,
     instruction:
