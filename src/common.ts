@@ -1,5 +1,4 @@
-import type { Instruction } from 'jsx-instruction'
-
+import type { Instruction } from './index'
 import { defineInstruction } from './index'
 
 declare module 'jsx-instruction' {
