@@ -4,6 +4,8 @@ import { defineInstruction } from './index'
 declare module 'jsx-instruction' {
   interface InstructionMap {
     number: Instruction<string | boolean | bigint, false, number | string>
+    string: Instruction<unknown, false, string>
+    boolean: Instruction<unknown | 'yes' | 'no' | 'y' | 'n', false, boolean>
     stop: Instruction<
       (e: { stopPropagation(): void }) => void | Promise<void>
     >
@@ -42,4 +44,11 @@ defineInstruction('number', [originalValue => {
     return Number(originalValue)
   }
   return originalValue
+}])
+defineInstruction('string', [originalValue => originalValue.toString()])
+defineInstruction('boolean', [originalValue => {
+  if (typeof originalValue === 'string') {
+    return ['yes', 'y'].includes(originalValue)
+  }
+  return Boolean(originalValue)
 }])
