@@ -1,14 +1,17 @@
 # JSX Instruction
 
-基于 [TypeScript namespaced-jsx-attributes](https://devblogs.microsoft.com/typescript/announcing-typescript-5-1-rc/#namespaced-jsx-attributes) 的支持，本仓库实现了一套组件的自定义指令系统。
+| EN: [English](./README.md)
+| ZH: [中文](readme/README.zh_CN.md)
 
-在 JSX 中，可以通过后缀指令 `onClick:stop={noop}` 的方式，通过 `stop` 指令来阻止事件冒泡。
+Based on the support for [TypeScript namespaced-jsx-attributes](https://devblogs.microsoft.com/typescript/announcing-typescript-5-1-rc/#namespaced-jsx-attributes), this repository implements a custom directive system for components.
 
-也可以使用 `foo:boolean='y'` 的方式，通过 `boolean` 指令来为 `foo` 设置 `boolean` 类型的数据。
+In JSX, you can use the postfix directive `onClick:stop={noop}` to prevent event bubbling using the `stop` directive.
 
-## 如何使用
+You can also use the syntax `foo:boolean='y'` to set the boolean type data for `foo` using the `boolean` directive.
 
-### 安装
+## How to Use
+
+### Installation
 
 ```bash
 npm install jsx-instruction
@@ -18,11 +21,11 @@ yarn add jsx-instruction
 pnpm add jsx-instruction
 ```
 
-### 配置
+### Configuration
 
-目前只支持 react，所以我们以 react 为例：
+Currently, only React is supported, so we'll use React as an example:
 
-* `tsconfig.json`：配置 `jsxImportSource` 为 `jsx-instruction/react`
+* `tsconfig.json`: Configure `jsxImportSource` to `jsx-instruction/react`
 ```json
 {
   "compilerOptions": {
@@ -31,14 +34,14 @@ pnpm add jsx-instruction
   }
 }
 ```
-* `App.ts`：引入类型与默认指令
+* `App.ts`：Import types and default instruction
 ```typescript jsx
 import 'jsx-instruction/common'
 
 import type { } from 'jsx-instruction/react'
 ```
 
-### 使用
+### Use
 
 ```typescript jsx
 export function Foo() {
@@ -52,15 +55,14 @@ export function Foo() {
   </div>
 }
 ```
+## Custom Directives
 
-## 自定义指令
+When it comes to directives, there are no specific restrictions on where they should be placed. They can be placed before or after an attribute. Commonly used directives may include:
 
-关于指令，指令所在的位置并无任何限制，它可以是 attribute 的前面，也可以是后面。常见的指令可能有：
 * `attr:stop`
 * `model:attr`
 
-指令的作用比较类似一个在 ECMAScript 标准中的一个语法「装饰器」，他可以去修改一个需要传入组件中的属性。
-（又或者是去修改当前的组件的返回对象，不过目前还没有进行该设计与实现，类似 Vue 中的 `v-loading`。）
+Directives function similarly to decorators in the ECMAScript standard. They can modify a property that needs to be passed into a component. (Alternatively, they can modify the return object of the current component, although this design and implementation have not been done yet, similar to Vue's `v-loading` directive.)
 
 ## common
 
