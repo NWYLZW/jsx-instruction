@@ -1,6 +1,6 @@
 import * as __Runtime__ from 'react/jsx-runtime'
 
-import { propsResolver } from '../index'
+import { propsResolver } from './utils'
 
 const Runtime = __Runtime__ as {
   jsx(type: any, props: any, key: any): any
