@@ -6,6 +6,7 @@ declare module 'jsx-instruction' {
     number: Instruction<string | boolean | bigint, false, number | string>
     string: Instruction<unknown, false, string>
     boolean: Instruction<unknown | 'yes' | 'no' | 'y' | 'n', false, boolean>
+    trim: Instruction<string, false, string>
     stop: Instruction<
       (e: { stopPropagation(): void }) => void | Promise<void>
     >
@@ -14,20 +15,6 @@ declare module 'jsx-instruction' {
     >
   }
 }
-
-defineInstruction('stop', [func => e => {
-  if (e.stopPropagation && typeof e.stopPropagation === 'function') {
-    e.stopPropagation()
-  }
-  return func(e)
-}])
-
-defineInstruction('prevent', [func => e => {
-  if (e.preventDefault && typeof e.preventDefault === 'function') {
-    e.preventDefault()
-  }
-  return func(e)
-}])
 
 defineInstruction('number', [originalValue => {
   if (typeof originalValue === 'string') {
@@ -51,4 +38,18 @@ defineInstruction('boolean', [originalValue => {
     return ['yes', 'y'].includes(originalValue)
   }
   return Boolean(originalValue)
+}])
+
+defineInstruction('trim', [originalValue => originalValue.trim()])
+defineInstruction('stop', [func => e => {
+  if (e.stopPropagation && typeof e.stopPropagation === 'function') {
+    e.stopPropagation()
+  }
+  return func(e)
+}])
+defineInstruction('prevent', [func => e => {
+  if (e.preventDefault && typeof e.preventDefault === 'function') {
+    e.preventDefault()
+  }
+  return func(e)
 }])
