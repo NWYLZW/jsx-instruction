@@ -40,19 +40,18 @@ export interface DefineInstruction {
   //   instruction: Instruction<T, IsPrev, CT, Exclude>,
   //   isPrev?: IsPrev,
   // ): void
-  <
-    N extends keyof InstructionMap,
-    // @ts-ignore
-    I extends Instruction<any> = InstructionMap[N],
-    T = I extends ((t: infer IT) => any) ? IT : never,
-  >(
+  <N extends keyof InstructionMap>(
     name: N,
     instruction:
       | [
-        target: (t: T) => [I['convert']] extends [never] ? T : I['convert'],
-        opts?: InstructionItf & InstructionDesc<I['isPrev'], I['convert'], I['exclude'][number]>
+        target: InstructionMap[N],
+        opts?: InstructionItf & InstructionDesc<
+          InstructionMap[N]['isPrev'],
+          InstructionMap[N]['convert'],
+          InstructionMap[N]['exclude'][number]
+        >
       ],
-    isPrev?: I['isPrev']
+    isPrev?: InstructionMap[N]['isPrev']
   ): void
 }
 
