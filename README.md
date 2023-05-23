@@ -13,7 +13,7 @@ You can also use the syntax `foo:boolean='y'` to set the boolean type data for `
 
 ### Installation
 
-```bash
+```shell
 npm install jsx-instruction
 # or
 yarn add jsx-instruction

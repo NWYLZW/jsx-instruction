@@ -13,7 +13,7 @@
 
 ### 安装
 
-```bash
+```shell
 npm install jsx-instruction
 # or
 yarn add jsx-instruction
