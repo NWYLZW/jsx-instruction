@@ -10,7 +10,7 @@
     "LICENSE"
   ],
   "scripts": {
-    "prepare": "cd demos/react && yarn",
+    "postinstall": "cd demos/react && yarn",
     "build": "tsc -p tsconfig.build.json",
     "test": "vitest"
   },
