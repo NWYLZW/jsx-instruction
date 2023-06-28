@@ -21,7 +21,7 @@ export type Instruction<
   CT = never,
   Exclude extends string = never,
 > =
-  & ((t: T) => [CT] extends [never] ? T : CT)
+  & ((t: T, key?: string) => [CT] extends [never] ? T : CT)
   & InstructionItf
   & InstructionDesc<IsPrev, CT, Exclude>
 
@@ -56,7 +56,7 @@ export interface DefineInstruction {
 }
 
 export const defineInstruction: DefineInstruction = (name, [target, opts], isPrev) => {
-  const instruction = target as Instruction<unknown>
+  const instruction = target as Instruction<unknown, boolean>
   instruction.isPrev = isPrev
   instruction.exclude = opts?.exclude
   // @ts-ignore
@@ -73,7 +73,7 @@ export type InstructionFieldDefine<
 > = {
   [KK in K
     as [IsPrev] extends [true]
-    ? `${IKey & string}:${KK & string}`
+    ? `${IKey & string}:${KK & string}` | (IKey & string)
     : `${KK & string}:${IKey & string}`
   ]: [CT] extends [never]
     ? T[KK]

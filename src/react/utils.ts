@@ -13,7 +13,7 @@ export const propsResolver = (props: any) => {
           const originalKey = instruction.isPrev
             ? key.slice(name.length + 1)
             : key.slice(0, key.length - name.length - 1)
-          propsWrap[originalKey] = instruction(props[key])
+          propsWrap[originalKey] = instruction(props[key], key)
           match = true
         }
       })
