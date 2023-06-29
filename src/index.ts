@@ -83,7 +83,7 @@ export type InstructionFieldDefine<
     as [IsPrev] extends [true]
     ? `${IKey & string}:${KK & string}` | (IKey & string)
     : `${KK & string}:${IKey & string}`
-  ]: [CT] extends [never]
+  ]?: [CT] extends [never]
     ? T[KK]
     : CT
 }
