@@ -1,6 +1,6 @@
 {
   "name": "jsx-instruction",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "jsx instruction",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -10,7 +10,7 @@
     "LICENSE"
   ],
   "scripts": {
-    "postinstall": "cd demos/react && yarn",
+    "prepare": "cd demos/react && yarn",
     "build": "tsc -p tsconfig.build.json",
     "test": "vitest"
   },
