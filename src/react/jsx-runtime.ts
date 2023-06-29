@@ -1,6 +1,6 @@
 import * as __Runtime__ from 'react/jsx-runtime'
 
-import { propsResolver } from './utils'
+import { instructionResolve } from './utils'
 
 const Runtime = __Runtime__ as {
   jsx(type: any, props: any, key: any): any
@@ -9,11 +9,11 @@ const Runtime = __Runtime__ as {
 }
 
 export function jsx(type: any, props: any, key: any) {
-  return Runtime.jsx(type, propsResolver(props), key)
+  return Runtime.jsx(type, instructionResolve(props), key)
 }
 
 export function jsxs(type: any, props: any, key: any) {
-  return Runtime.jsxs(type, propsResolver(props), key)
+  return Runtime.jsxs(type, instructionResolve(props), key)
 }
 
 export const Fragment = Runtime.Fragment

@@ -13,7 +13,12 @@ export interface InstructionDesc<
   isPrev?: IsPrev
   exclude?: Exclude[]
   convert?: CT
+  wrap?: true
 }
+
+export const ExcludePropSymbol = Symbol('ExcludeProp')
+
+export type WrapFunc = (JSXElementCallback: Function) => any
 
 export type Instruction<
   T,
@@ -21,7 +26,7 @@ export type Instruction<
   CT = never,
   Exclude extends string = never,
 > =
-  & ((t: T, key?: string) => [CT] extends [never] ? T : CT)
+  & ((t: T, key?: string, setWrap?: (w: WrapFunc) => void) => [CT] extends [never] ? T : CT)
   & InstructionItf
   & InstructionDesc<IsPrev, CT, Exclude>
 
@@ -45,11 +50,11 @@ export interface DefineInstruction {
     instruction:
       | [
         target: InstructionMap[N],
-        opts?: InstructionItf & InstructionDesc<
+        opts?: InstructionItf & Omit<InstructionDesc<
           InstructionMap[N]['isPrev'],
           InstructionMap[N]['convert'],
           InstructionMap[N]['exclude'][number]
-        >
+        >, 'isPrev' | 'convert'>
       ],
     isPrev?: InstructionMap[N]['isPrev']
   ): void
@@ -58,7 +63,10 @@ export interface DefineInstruction {
 export const defineInstruction: DefineInstruction = (name, [target, opts], isPrev) => {
   const instruction = target as Instruction<unknown, boolean>
   instruction.isPrev = isPrev
-  instruction.exclude = opts?.exclude
+  for (const key in opts) {
+    // @ts-ignore
+    instruction[key] = opts[key]
+  }
   // @ts-ignore
   instructors[name] = target
 }

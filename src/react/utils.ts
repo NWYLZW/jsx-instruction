@@ -1,24 +1,36 @@
-import { instructors } from '../'
+import type { WrapFunc } from '../'
+import { ExcludePropSymbol, instructors } from '../'
 
-export const propsResolver = (props: any) => {
-  const propsWrap = {} as Record<string, any>
+export const instructionResolve = (props: any) => {
+  const instructorsEntries = Object.entries(instructors)
+
+  let wrap: WrapFunc = undefined
+  const nProps = {} as Record<string, any>
   for (const key in props) {
-    let match = false
-    Object.entries(instructors)
-      .forEach(([name, instruction]) => {
+    let originalKey: string
+    let instruction: typeof instructors[string]
+    instructorsEntries
+      .forEach(([name, cureInstruction]) => {
         if (
-          (instruction.isPrev && key.startsWith(name + ':')) ||
-          (!instruction.isPrev && key.endsWith(':' + name))
+          (cureInstruction.isPrev && (
+            key.startsWith(name + ':') || key === name
+          ))
+          || (!cureInstruction.isPrev && key.endsWith(':' + name))
         ) {
-          const originalKey = instruction.isPrev
+          originalKey = cureInstruction.isPrev
             ? key.slice(name.length + 1)
             : key.slice(0, key.length - name.length - 1)
-          propsWrap[originalKey] = instruction(props[key], key)
-          match = true
+          instruction = cureInstruction
         }
       })
-    if (!match)
-      propsWrap[key] = props[key]
+    if (instruction) {
+      const calcValue = instruction(props[key], key, w => wrap = w)
+      if (calcValue !== ExcludePropSymbol) {
+        nProps[originalKey!] = calcValue
+      }
+    } else {
+      nProps[key] = props[key]
+    }
   }
-  return propsWrap
+  return [nProps, wrap] as const
 }

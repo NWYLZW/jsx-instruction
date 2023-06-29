@@ -1,5 +1,5 @@
 import type { Instruction } from './index'
-import { defineInstruction } from './index'
+import { defineInstruction, ExcludePropSymbol } from './index'
 
 declare module 'jsx-instruction' {
   interface InstructionMap {
@@ -13,6 +13,7 @@ declare module 'jsx-instruction' {
     prevent: Instruction<
       (e: { preventDefault(): void }) => void | Promise<void>
     >
+    $if: Instruction<unknown, true, unknown>
   }
 }
 
@@ -53,3 +54,8 @@ defineInstruction('prevent', [func => e => {
   }
   return func(e)
 }])
+
+defineInstruction('$if', [(v, k, setWrap) => {
+  setWrap(f => v ? f() : null)
+  return ExcludePropSymbol
+}, { wrap: true }], true)
