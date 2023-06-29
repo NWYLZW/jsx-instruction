@@ -56,6 +56,12 @@ defineInstruction('prevent', [func => e => {
 }])
 
 defineInstruction('$if', [(v, k, setWrap) => {
-  setWrap(f => v ? f() : null)
+  setWrap((f, props) => {
+    let cond = v
+    if (k !== '$if') {
+      cond = props[k.slice(4)] === v
+    }
+    return cond ? f() : null
+  })
   return ExcludePropSymbol
 }, { wrap: true }], true)

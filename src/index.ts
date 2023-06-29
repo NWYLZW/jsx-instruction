@@ -18,7 +18,7 @@ export interface InstructionDesc<
 
 export const ExcludePropSymbol = Symbol('ExcludeProp')
 
-export type WrapFunc = (JSXElementCallback: Function) => any
+export type WrapFunc = (JSXElementCallback: Function, props: Record<string, unknown>) => any
 
 export type Instruction<
   T,

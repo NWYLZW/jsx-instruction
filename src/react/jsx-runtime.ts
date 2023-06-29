@@ -8,12 +8,16 @@ const Runtime = __Runtime__ as {
   Fragment: any
 }
 
-export function jsx(type: any, props: any, key: any) {
-  return Runtime.jsx(type, instructionResolve(props), key)
+export function jsxs(type: any, props: any, key: any) {
+  const [nProps, wrap] = instructionResolve(props)
+  const JSXElementCallback = Runtime.jsxs.bind(Runtime, type, nProps, key)
+  return wrap ? wrap(JSXElementCallback, nProps) : JSXElementCallback()
 }
 
-export function jsxs(type: any, props: any, key: any) {
-  return Runtime.jsxs(type, instructionResolve(props), key)
+export function jsx(type: any, props: any, key: any) {
+  const [nProps, wrap] = instructionResolve(props)
+  const JSXElementCallback = Runtime.jsx.bind(Runtime, type, nProps, key)
+  return wrap ? wrap(JSXElementCallback, nProps) : JSXElementCallback()
 }
 
 export const Fragment = Runtime.Fragment
