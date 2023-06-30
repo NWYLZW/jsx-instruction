@@ -62,12 +62,13 @@ export function Foo() {
 * `attr:stop`
 * `model:attr`
 
-指令的作用比较类似一个在 ECMAScript 标准中的一个语法「装饰器」，他可以去修改一个需要传入组件中的属性。
-（又或者是去修改当前的组件的返回对象，不过目前还没有进行该设计与实现，类似 Vue 中的 `v-loading`。）
+建议关于指令的作用，可以根据指令的位置来决定。在这里推荐进行如下的指令分类：
+* `i-show={condition}`：作为一个单指令，判断传入的变量，并且通过 `display` 来控制元素的显示与隐藏。
+* `attr:stop={func}`：作为一个修饰指令，对传入的函数进行包装，使其在执行时，会先执行 `stopPropagation`。
+* `i-model:attr={props}`：作为一个描述 Attr 的指令，从 props 中取出 `attrValue` 与 `onAttrChange`，并且将其绑定到 `attr` 上。
 
-## common
+### 自定义属性预处理器
 
-* stop.plugin.ts
 ```typescript
 import { defineInstruction, Instruction } from 'jsx-instruction'
 
@@ -85,4 +86,43 @@ defineInstruction('stop', [func => e => {
   }
   return func(e)
 }])
+```
+
+### 控制流
+
+```typescript jsx
+function App() {
+  return <div>
+    <div $if={true}>
+      show
+    </div>
+    <div $if={false}>
+      show
+    </div>
+
+    <div $for={[1, 2, 3]} $key:self>
+      {item => item}
+    </div>
+    <div $for={[o0, o1, o2]} $key:index>
+      {item => item.label}
+    </div>
+    <div $for={[o0, o1, o2]} $key='id'>
+      {item => item.label}
+    </div>
+    <div $for={[o0, o1, o2]} $key={o => o.id}>
+      {item => item.label}
+    </div>
+
+    <Card>
+      <Template $slot:header>This is header slot</Template>
+    </Card>
+
+    <UserCard>
+      {Template('$slot:header', user => <span style={{ color: 'red' }}>{user.name}</span>)}
+      <Template $slot:header={user =>
+        <span style={{ color: 'red' }}>{user.name}</span>
+      }/>
+    </UserCard>
+  </div>
+}
 ```
