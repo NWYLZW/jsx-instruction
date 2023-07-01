@@ -92,14 +92,31 @@ defineInstruction('stop', [func => e => {
 
 ```typescript jsx
 function App() {
-  return <div>
+  return <>
     <div $if={true}>
       show
     </div>
-    <div $if={false}>
+    <div $else>
       show
     </div>
+    <div $if={v === 1}>
+      hide
+    </div>
+    <div $else-if={v === 2}>
+      hide
+    </div>
+    <div $else>
+      hide
+    </div>
+  </>
+}
+```
 
+### 循环
+
+```typescript jsx
+function App() {
+  return <>
     <div $for={[1, 2, 3]} $key:self>
       {item => item}
     </div>
@@ -112,7 +129,19 @@ function App() {
     <div $for={[o0, o1, o2]} $key={o => o.id}>
       {item => item.label}
     </div>
+    <Fragment $for={[o0, o1, o2]} $key={o => o.id}>
+      <span>{item => item.label}</span>
+      <span>{item => item.value}</span>
+    </Fragment>
+  </>
+}
+```
 
+### 插槽
+
+```typescript jsx
+function App() {
+  return <>
     <Card>
       <Template $slot:header>This is header slot</Template>
     </Card>
@@ -123,6 +152,6 @@ function App() {
         <span style={{ color: 'red' }}>{user.name}</span>
       }/>
     </UserCard>
-  </div>
+  </>
 }
 ```
